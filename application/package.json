@@ -1,0 +1,27 @@
+{
+  "name": "bigez-backend",
+  "version": "1.0.0",
+  "description": "Tübit bigez application backend that handles business logic and database interaction.",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yengas/tubit-bigez-backend.git"
+  },
+  "keywords": [
+    "getir",
+    "hackathon",
+    "bigez"
+  ],
+  "author": "Yengas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yengas/tubit-bigez-backend/issues"
+  },
+  "homepage": "https://github.com/Yengas/tubit-bigez-backend#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0"
+  }
+}
