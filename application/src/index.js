@@ -1,6 +1,7 @@
 const config = require('./config'),
       express = require('express'),
       bodyParser = require('body-parser'),
+      databaseConnection = require('./database')(config.mongo),
       log = require('./logger'),
       app = express();
 
@@ -19,6 +20,15 @@ app.use(function(req, res, next) {
 // Insert login related endpoints.
 require('./controllers/login/index')({ token: config.token, social: config.social }, app);
 
-app.listen(config.port, () => {
-  log.info({ port: config.port }, "Started listening for requests.");
-});
+databaseConnection
+  .then(() => {
+    log.info("Database connection initiated.");
+
+    app.listen(config.port, () => {
+      log.info({ port: config.port }, "Started listening for requests.");
+    });
+  })
+  .catch(() => {
+    log.error({ err }, "An error occured while connecting to the database.");
+    process.exit(-1);
+  });

@@ -4,6 +4,9 @@ module.exports = {
   frontend: {
     origin: process.env.FRONTEND_ORIGIN || 'http://localhost:2000'
   },
+  mongo: {
+    url: process.env.DATABASE_CONFIGURATION
+  },
   social: {
     facebook: {
       id: process.env.FACEBOOK_APP_ID,

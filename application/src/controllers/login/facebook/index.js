@@ -1,4 +1,5 @@
 const log = require('../../../logger');
+const User = require('../../../models/User');
 const FB = require('fb');
 
 // Facebook oauth url generation and user info get.
@@ -51,6 +52,17 @@ module.exports = (config) => {
     });
   }
 
+  /**
+   * Creates or finds a user, given the facebook profile of the user.
+   * @param facebook_profile
+   * @return {*}
+   */
+  function createOrFindUser(facebook_profile){
+    const { email, name } = facebook_profile;
+    const { url: picture } = facebook_profile.picture.data;
+    return User.createOrFindWithProfile({ email, profile: { name, picture }});
+  }
+
   return {
     // Login url generation
     login: (body) => {
@@ -60,13 +72,13 @@ module.exports = (config) => {
     // Get user info!
     callback: (body) =>{
       const { redirect_uri, code } = body;
-      log.info({ body }, 'Callback received!');
+      log.info({ body }, 'Facebook callback received!');
       return generateAccessToken(redirect_uri, code)
         .then(res => extendAccessToken(res.access_token))
         .then(res => Promise.all([res, getProfile(res.access_token)]))
         .then(([ res, profile ]) => {
-          log.info({ profile, res }, "Got user profile and access token.");
-          return Promise.resolve({ profile, res });
+          log.info({ profile }, "Got user profile and access token.");
+          return createOrFindUser(profile);
         });
     }
   };
