@@ -28,6 +28,7 @@ routeSchema.statics.findMatch = function(route, { elasticity, factor, timeScore 
   // Create a router object which flexed with the given elasticity parameters
   route = Object.assign({
     _id: route._id,
+    person: route.person,
     period: Object.assign(
       { start: route.period.start, end: route.period.end },
       {
@@ -44,11 +45,11 @@ routeSchema.statics.findMatch = function(route, { elasticity, factor, timeScore 
     { $match:
       { $and: [
         // We're not interested in this record.
-        { _id: { $ne: route._id }},
+        { _id: { $ne: route._id }, person: { $ne: route.person }},
         // If the time of the record in the database matches with the flexed time of the given record.
         { $or: [
-          { $and: [ { 'period.end': { $gte: route.period.elast_start }}, { 'period.end': { $lte : route.period.elast_end }}]},
-          { $and: [ { 'period.start': { $lte: route.period.elast_end }}, { 'period.start': { $gte: route.period.elast_start }}]}
+          { 'period.end': { $gte: route.period.elast_start }},
+          { 'period.start': { $lte: route.period.elast_end }}
         ]},
         // Checks if the route in the database intersects with the route of the given record.
         { route: { $geoIntersects: { $geometry: { type: 'LineString', coordinates: route.coordinates }}}}

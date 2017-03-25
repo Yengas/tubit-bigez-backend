@@ -28,5 +28,25 @@
     },
     "updatedAt": { "$date": "2017-03-25T06:05:01.996Z" },
     "createdAt": { "$date": "2017-03-25T06:05:01.996Z" }
+  },
+  {
+    "person": { "$oid": "58d609c9e02e376532399655" },
+    "period": { "start": { "$date": "2017-03-26T11:00:00.000Z" }, "end": { "$date": "2017-03-26T14:00:00.000Z" }},
+    "route": {
+      "type": "LineString",
+      "coordinates": [[41.010847, 28.968052]]
+    },
+    "updatedAt": { "$date": "2017-03-25T06:05:01.996Z" },
+    "createdAt": { "$date": "2017-03-25T06:05:01.996Z" }
+  },
+  {
+    "person": { "$oid": "58d6088dcb3fba0020daf142" },
+    "period": { "start": { "$date": "2017-03-26T11:00:00.000Z" }, "end": { "$date": "2017-03-26T20:00:00.000Z" }},
+    "route": {
+      "type": "LineString",
+      "coordinates": [[41.005677, 28.976862]]
+    },
+    "updatedAt": { "$date": "2017-03-25T06:05:01.996Z" },
+    "createdAt": { "$date": "2017-03-25T06:05:01.996Z" }
   }
 ]
