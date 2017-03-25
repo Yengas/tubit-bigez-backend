@@ -14,7 +14,7 @@ app.use(require('./middlewares/auth')(config.headers.token, cache.auth));
 app.use(bodyParser.json({ extended: true }));
 
 // Insert login related endpoints.
-require('./controllers/login/index')({ token: config.token, social: config.social }, app, cache.auth);
+require('./routes/login/index')({ token: config.token, social: config.social }, app, cache.auth);
 
 databaseConnection
   .then(() => {
