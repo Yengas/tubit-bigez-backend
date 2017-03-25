@@ -83,6 +83,7 @@ routeSchema.statics.findMatch = function(route, { elasticity, factor, timeScore 
         }
       }
     },
+    { $lookup: { from: 'users', localField: 'person', foreignField: '_id', as: 'person' }},
     // Sort by the score of the records.
     { $sort: { score: -1 }},
   ]).exec();
