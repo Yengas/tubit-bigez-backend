@@ -7,7 +7,7 @@ const routeSchema = new mongoose.Schema({
     start: { type: Date },
     end: { type: Date }
   },
-  route: { type: { type: String }, coordinates: { type: [[Number]], index: '2dsphere' }}
+  route: { type: { type: String, default: 'LineString' }, coordinates: { type: [[Number]], index: '2dsphere' }}
 }, { timestamps: true });
 
 const defaultOptions = {
