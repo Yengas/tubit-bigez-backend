@@ -8,6 +8,6 @@ Three main folders are the most important parts of this project. The root folder
  - `cache` the redis configuration to hold the cache of development/production deployments.
  
  # Deployment
- Run the [docker-compose.yml](./docker-compose.yml) stored in this folder after creating `.secret.env` files storing your secret configurations of services. For example for the `application` service, this file is called `application.secret.env` and stores the secret for the Facebook ap.
+ Run the [docker-compose.yml](./docker-compose.yml) stored in this folder after creating `.secret.env` files storing your secret configurations of services. For example for the `application` service, this file is called `application.secret.env` and stores the secret for the Facebook app and the token generation secret.
  
  Running `docker-compose up` starts the backend services and seeds the databases to hold the initial values for the deployment.

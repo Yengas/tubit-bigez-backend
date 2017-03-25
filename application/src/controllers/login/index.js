@@ -5,10 +5,9 @@ const log = require('../../logger');
  * @param config
  * @param app
  */
-module.exports = (config, app) => {
+module.exports = (config, app, auth) => {
   const { token } = config;
   const { facebook } = config.social;
-  const { generate: generateToken } = require('./token')(token);
 
   const endpoints = {
     social: Object.assign(
@@ -27,11 +26,11 @@ module.exports = (config, app) => {
       endpoints.social[name].callback(req.query)
         .then(user => {
           log.info({ user }, "Got user info.");
-          return generateToken(user);
+          return auth.createToken(user);
         })
         .then(token => res.json({ token }))
         .catch(err => {
-          log.error({ err, name }, "An error occured while processing login callback.");
+          log.error({ reason: err.name, name }, "An error occured while processing login callback.");
           res.status(500);
           res.json({ error: true, reason: err.message })
         });

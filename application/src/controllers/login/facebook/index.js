@@ -66,11 +66,13 @@ module.exports = (config) => {
   return {
     // Login url generation
     login: (body) => {
+      // TODO: validate redirect_uri
       const { redirect_uri } = body;
       return getLoginURL(redirect_uri);
     },
     // Get user info!
     callback: (body) =>{
+      // TODO: validate redirect_uri and code
       const { redirect_uri, code } = body;
       log.info({ body }, 'Facebook callback received!');
       return generateAccessToken(redirect_uri, code)

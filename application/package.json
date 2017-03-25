@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Yengas/tubit-bigez-backend#readme",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "bunyan": "^1.8.9",
     "dotenv": "^4.0.0",
