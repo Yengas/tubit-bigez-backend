@@ -15,6 +15,8 @@ app.use(bodyParser.json({ extended: true }));
 
 // Insert login related endpoints.
 require('./routes/login/index')({ token: config.token, social: config.social }, app, cache.auth);
+// Insert marker related endpoints
+require('./routes/marker/index')(app);
 
 databaseConnection
   .then(() => {
