@@ -8,6 +8,9 @@ const markerSchema = new mongoose.Schema({
   location: { type: { type: String, default: 'Point' }, coordinates: { type: [Number], index: '2dsphere' }}
 }, { timestamps: false });
 
+// Avoid duplicate markers by checking name/location pairs.
+markerSchema.index({ name: 1, location: 1 }, { unique: true });
+
 markerSchema.statics.list = function(){
   return this.find({}).exec();
 };
