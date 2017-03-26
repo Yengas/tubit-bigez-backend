@@ -12,6 +12,13 @@ markerSchema.statics.list = function(){
   return this.find({}).exec();
 };
 
+/**
+ * Finds the markers which are near to the given point.
+ * Distance may be configured.
+ * @param point {Array} lat/long of the point on the map.
+ * @param distance {Number} maxDistance of the markers to the point in meters.
+ * @return {Promise}
+ */
 markerSchema.statics.query = function(point, distance){
   const geojson = { type: 'Point', coordinates: point };
   return this.find({ location: { $near: { $geometry: geojson , $maxDistance: distance }}}).exec();
