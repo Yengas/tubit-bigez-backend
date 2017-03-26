@@ -10,7 +10,6 @@ module.exports = function(app){
   });
 
   app.post('/markers/query', (req, res, next) => {
-    console.log(req.body);
     const { error, value } = Joi.validate(req.body, validation.query);
     if(error) return next(error);
     const { point, distance } = req.body;
