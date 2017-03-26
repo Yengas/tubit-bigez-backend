@@ -1,4 +1,5 @@
 const mongoose = require('mongoose'),
+      Accept = require('./Accept'),
       log = require('../logger');
 
 const userSchema = new mongoose.Schema({
@@ -30,6 +31,17 @@ userSchema.statics.createOrFindWithProfile = function(user){
       const newUser = new this(user);
       return newUser.save();
     });
+};
+
+/**
+ * Checks if the user already accepted the route or not.
+ * @param route {String} the id of the route.
+ * @returns {Promise}
+ */
+userSchema.methods.hasAccepted = function(route){
+  return Accept.findOne({ person: this._id, route })
+    .then((user) => Promise.resolve(!!user))
+    .catch(() => Promise.resolve(false));
 };
 
 const User = mongoose.model('User', userSchema);

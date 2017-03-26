@@ -27,8 +27,10 @@ module.exports = (app, options = {}) => {
     const { error, value } = Joi.validate(req.params, validation.id);
     if(error) return next(error);
     const { id } = req.params;
-    return Route.findById(id)
-      .then((result) => res.json(result))
+    return Promise.all([
+      Route.findById(id),
+      req.user ? req.user.hasAccepted(id) : Promise.resolve(false)
+    ]).then(([result, accepted]) => res.json(Object.assign(result.toObject(), { accepted })))
       .catch(next);
   });
 

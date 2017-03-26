@@ -249,5 +249,94 @@
         41.006442, 28.974758
       ]
     }
+  },
+  {
+    "name": "Beyazıt camii",
+    "rating": 4.8,
+    "description": "The Turkish and Islamic Arts Museum is a museum located in Sultanahmet Square in Fatih district of Istanbul, Turkey. ",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.010254, 28.965200
+      ]
+    }
+  },
+  {
+    "name": "Mısır çarşısı",
+    "rating": 4.8,
+    "description": "The Turkish and Islamic Arts Museum is a museum located in Sultanahmet Square in Fatih district of Istanbul, Turkey. ",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.016728, 28.970602
+      ]
+    }
+  },
+  {
+    "name": "Taksim meydanı",
+    "rating": 4.8,
+    "description": "The Turkish and Islamic Arts Museum is a museum located in Sultanahmet Square in Fatih district of Istanbul, Turkey. ",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.036331, 28.986571
+      ]
+    }
+  },
+  {
+    "name": "Tüyap kitap fuarı",
+    "rating": 4.8,
+    "description": "The Turkish and Islamic Arts Museum is a museum located in Sultanahmet Square in Fatih district of Istanbul, Turkey. ",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.025901, 28.623272
+      ]
+    }
+  },
+  {
+    "name": "Tombili heykeli",
+    "rating": 4.8,
+    "description": "The Turkish and Islamic Arts Museum is a museum located in Sultanahmet Square in Fatih district of Istanbul, Turkey. ",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        40.989013, 29.042325
+      ]
+    }
+  },
+  {
+    "name": "Galata kulesi",
+    "rating": 4.8,
+    "description": "The Turkish and Islamic Arts Museum is a museum located in Sultanahmet Square in Fatih district of Istanbul, Turkey. ",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.025697, 28.974285
+      ]
+    }
+  },
+  {
+    "name": "İtü bilim merkezi",
+    "rating": 4.8,
+    "description": "The Turkish and Islamic Arts Museum is a museum located in Sultanahmet Square in Fatih district of Istanbul, Turkey. ",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.041382, 28.990780
+      ]
+    }
+  },
+  {
+    "name": "Getir Ofisi",
+    "rating": 4.8,
+    "description": "The Turkish and Islamic Arts Museum is a museum located in Sultanahmet Square in Fatih district of Istanbul, Turkey. ",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        41.078644, 29.022236
+      ]
+    }
   }
+  
 ]

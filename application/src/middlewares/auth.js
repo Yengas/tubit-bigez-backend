@@ -1,3 +1,5 @@
+const User = require('../models/User');
+
 /**
  * Returns a function that queries the redis backend for the given token.
  * Present in the header.
@@ -11,7 +13,7 @@ module.exports = (header, auth) => {
     if(!token) return next();
 
     return auth.findToken(token).then((user) => {
-      req.user = user;
+      req.user = new User(user);
       next();
     });
   };
