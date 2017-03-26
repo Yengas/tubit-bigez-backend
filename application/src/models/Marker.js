@@ -5,7 +5,7 @@ const markerSchema = new mongoose.Schema({
   name: { type: String },
   rating: { type: Number },
   description: { type: String },
-  location: { type: { type: String}, coordinates: { type: [Number], index: '2dsphere' }}
+  location: { type: { type: String, default: 'Point' }, coordinates: { type: [Number], index: '2dsphere' }}
 }, { timestamps: false });
 
 markerSchema.statics.list = function(){

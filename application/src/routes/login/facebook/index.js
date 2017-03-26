@@ -1,6 +1,8 @@
 const log = require('../../../logger');
 const User = require('../../../models/User');
 const FB = require('fb');
+const validation = require('./validation');
+const Joi = require('joi');
 
 // Facebook oauth url generation and user info get.
 module.exports = (config) => {
@@ -66,14 +68,18 @@ module.exports = (config) => {
   return {
     // Login url generation
     login: (body) => {
-      // TODO: validate redirect_uri
+      const { error, value } = Joi.validate(body, validation.login);
+      if(error) return Promise.reject(new Error('Invalid redirect_uri!'));
       const { redirect_uri } = body;
+
       return getLoginURL(redirect_uri);
     },
     // Get user info!
     callback: (body) =>{
-      // TODO: validate redirect_uri and code
+      const { error, value } = Joi.validate(body, validation.callback);
+      if(error) return Promise.reject(new Error('Invalid callback data!'));
       const { redirect_uri, code } = body;
+
       log.info({ body }, 'Facebook callback received!');
       return generateAccessToken(redirect_uri, code)
         .then(res => extendAccessToken(res.access_token))

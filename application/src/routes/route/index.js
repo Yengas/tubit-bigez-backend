@@ -1,7 +1,11 @@
 const Route = require('../../models/Route');
+const validation = require('./validation');
+const Joi = require('joi');
 
 module.exports = (app) => {
   app.get('/routes/:id', (req, res, next) => {
+    const { error, value } = Joi.validate(req.params, validation.id);
+    if(error) return next(error);
     const { id } = req.params;
     return Route.findById(id)
       .then((result) => res.json(result))
@@ -9,6 +13,8 @@ module.exports = (app) => {
   });
 
   app.get('/routes/:id/match', (req, res, next) => {
+    const { error, value } = Joi.validate(req.params, validation.id);
+    if(error) return next(error);
     const { id } = req.params;
     Route.findById(id)
       .then(route => route ? Route.findMatch(route) : Promise.reject(route))
@@ -18,6 +24,8 @@ module.exports = (app) => {
 
   app.post('/routes', (req, res, next) => {
     if(!req.user) next(new Error("This requires an authenticated user!"));
+    const { error, value } = Joi.validate(req.body, validation.routeCreate);
+    if(error) return next(error);
     const { start, end, route: routeBody } = req.body;
     const route = new Route();
     route.period.start = start;
