@@ -1,6 +1,21 @@
-const Route = require('../../models/Route');
-const validation = require('./validation');
-const Joi = require('joi');
+const Route = require('../../models/Route'),
+      Accept = require('../../models/Accept'),
+      validation = require('./validation'),
+      Joi = require('joi');
+
+/**
+ * Creates a meaningful notification to a route owner, notifiying that
+ * someone is interested to work with them.
+ * @param acceptInfo {Object} an object that holds info about the route owner and the route.
+ * @param user {Object} user who is interested to travel with the owner.
+ * @param acceptRecord {Object} an accept record created for this event.
+ * @return {string} the notification message to send to the route owner.
+ */
+function createAcceptNotification(acceptInfo, user, acceptRecord){
+  const { companion, route } = acceptInfo;
+  return `Merhabalar sevgili ${companion.profile.name},
+Bu maili sana sitemiz üzerinde oluşturduğun gezme planı ile ilgilenen bir yoldaşın olduğu için atıyoruz. Kendisine ${user.email} adresinden erişebilirsin.`;
+}
 
 module.exports = (app, options = {}) => {
   const { mail } = options;
@@ -28,6 +43,30 @@ module.exports = (app, options = {}) => {
       .catch(next);
   });
 
+  app.get('/routes/:id/accept', (req, res, next) => {
+    if(!req.user) return next(new Error("This requires an authenticated user!"));
+    const { error, value } = Joi.validate(req.params, validation.id);
+    if(error) return next(error);
+    const { id } = req.params;
+
+    // Populate the route by person so we can send notifications.
+    Route.findById(id).populate('person')
+      // If no route is found with the given id, reject, else prepare data
+      .then(route => route ? Promise.resolve({ companion: route.person, person: req.user._id, route: route }) : Promise.reject('Route not found!'))
+      // Create an Accept record with the last promise's result.
+      .then(acceptInfo => {
+        return new Accept(acceptInfo)
+          .save()
+          .then((result) => {
+            notification(createAcceptNotification(acceptInfo, req.user, result), acceptInfo.companion.email);
+            return Promise.resolve(result);
+          });
+      })
+      .then(result => res.json(result))
+      .catch(next);
+  });
+
+
   app.post('/routes', (req, res, next) => {
     if(!req.user) next(new Error("This requires an authenticated user!"));
     const { error, value } = Joi.validate(req.body, validation.routeCreate);
@@ -43,4 +82,5 @@ module.exports = (app, options = {}) => {
       .then((result) => res.json(result))
       .catch(next);
   });
+
 };
