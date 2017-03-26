@@ -21,6 +21,9 @@ require('./routes/marker/index')(app);
 // Insert route related endpoints
 require('./routes/route/index')(app, { mail });
 
+// Handle errors to respond with json.
+app.use(require('./middlewares/error')());
+
 databaseConnection
   .then(() => {
     log.info("Database connection initiated.");
