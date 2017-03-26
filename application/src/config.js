@@ -7,6 +7,17 @@ module.exports = {
   headers: {
     token: process.env.TOKEN_HEADER || 'x-bigez-token'
   },
+  mail: {
+    creds: { service: 'gmail', auth: { user: process.env.GMAIL_ADDRESS, pass: process.env.GMAIL_PASSWORD }},
+    createPayload: (text, to) => {
+      return {
+        from: "yengas07@gmail.com",
+        to,
+        subject: "Birisi sizinle gezmek istiyor!",
+        text, html: text
+      };
+    }
+  },
   redis: {
     host: process.env.REDIS || 'cache',
     port: process.env.REDIS_PORT || 6379,

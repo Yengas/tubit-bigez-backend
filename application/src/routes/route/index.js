@@ -2,7 +2,12 @@ const Route = require('../../models/Route');
 const validation = require('./validation');
 const Joi = require('joi');
 
-module.exports = (app) => {
+module.exports = (app, options = {}) => {
+  const { mail } = options;
+
+  // Set the notification to either mailing or noop by checking the options.
+  const notification = mail ? mail.single : () => {};
+
   app.get('/routes/:id', (req, res, next) => {
     const { error, value } = Joi.validate(req.params, validation.id);
     if(error) return next(error);
@@ -16,6 +21,7 @@ module.exports = (app) => {
     const { error, value } = Joi.validate(req.params, validation.id);
     if(error) return next(error);
     const { id } = req.params;
+
     Route.findById(id)
       .then(route => route ? Route.findMatch(route) : Promise.reject(route))
       .then((result) => res.json(result))

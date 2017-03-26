@@ -3,6 +3,7 @@ const config = require('./config'),
       bodyParser = require('body-parser'),
       databaseConnection = require('./database')(config.mongo),
       cache = require('./cache/index')(config.redis),
+      mail = require('./mail')(config.mail),
       log = require('./logger'),
       app = express();
 
@@ -18,7 +19,7 @@ require('./routes/login/index')({ token: config.token, social: config.social }, 
 // Insert marker related endpoints
 require('./routes/marker/index')(app);
 // Insert route related endpoints
-require('./routes/route/index')(app);
+require('./routes/route/index')(app, { mail });
 
 databaseConnection
   .then(() => {
