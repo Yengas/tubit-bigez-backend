@@ -1,8 +1,11 @@
 FROM mongo:3.4.2
 LABEL maintainer "yigitcan@hotmail.com.tr"
 
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/bin/wait-for-it
+RUN chmod +x /usr/bin/wait-for-it
+
 ADD ./seeds /seeds
-# Seed with test data to test out seeding.
-CMD mongoimport --host database --db bigez --collection users --type json --file /seeds/users.json --jsonArray && \
-    mongoimport --host database --db bigez --collection markers --type json --file /seeds/markers.json --jsonArray && \
-    mongoimport --host database --db bigez --collection routes --type json --file /seeds/routes.json --jsonArray
+ADD ./entrypoint.sh /usr/bin/entrypoint.sh
+RUN chmod +x /usr/bin/entrypoint.sh
+
+CMD ["/usr/bin/entrypoint.sh"]
