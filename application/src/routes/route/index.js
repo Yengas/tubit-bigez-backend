@@ -70,7 +70,7 @@ module.exports = (app, options = {}) => {
 
 
   app.post('/routes', (req, res, next) => {
-    if(!req.user) next(new Error("This requires an authenticated user!"));
+    if(!req.user) return next(new Error("This requires an authenticated user!"));
     const { error, value } = Joi.validate(req.body, validation.routeCreate);
     if(error) return next(error);
     const { start, end, route: routeBody } = req.body;

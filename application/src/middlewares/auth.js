@@ -15,6 +15,6 @@ module.exports = (header, auth) => {
     return auth.findToken(token).then((user) => {
       req.user = new User(user);
       next();
-    });
+    }).catch(() => next());
   };
 };

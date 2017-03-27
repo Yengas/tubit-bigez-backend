@@ -14,7 +14,7 @@ module.exports = (config, redis) => {
    */
   function findToken(token){
     const key = `${config.key}:${token}`;
-    return redis.getAsync(key).then(res => Promise.resolve(JSON.parse(res)));
+    return redis.getAsync(key).then(res => res ? Promise.resolve(JSON.parse(res)) : res.reject('Key not found in cache.'));
   }
 
   /**
