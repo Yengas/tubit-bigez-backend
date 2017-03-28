@@ -12,3 +12,5 @@ Three main folders are the most important parts of this project. The root folder
  
  Running `docker-compose up` starts the backend services and seeds the databases to hold the initial values for the deployment.
  
+## Note
+There is a problem with the mongodump/mongorestore that i couldn't resolve. Mongodump files i try to initialize in the docker-compose file are extracted from a working demo. However when the `docker-compose up` command is run, there is a bug that causes the database-seed operation to fail inconsistently(2 out of 10 times). I have wrote about this issue on [#1](https://github.com/Yengas/tubit-bigez-backend/issues/1).
