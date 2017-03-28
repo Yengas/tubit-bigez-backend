@@ -15,6 +15,9 @@ until mongo mongodb://database --eval "{ ping: 1 }"; do !!; done
 if [ ! -f $RESTORE_CHECK_FILE ]; then
     # No need to gzip atm.
     # mongorestore -h database --gzip /dump
+    echo "Started the seeding process."
     mongorestore -h database /dump
     touch $RESTORE_CHECK_FILE
+else
+    echo "Not seeding because this container alreaddy ran before."
 fi
